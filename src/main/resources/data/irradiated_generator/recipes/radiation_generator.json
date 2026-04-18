@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IUI",
+    "UHU",
+    "IOI"
+  ],
+  "key": {
+    "H": { "item": "mekanismgenerators:heat_generator" },
+    "O": { "item": "mekanism:pellet_polonium" },
+    "U": { "item": "mekanism:pellet_plutonium" },
+    "I": { "item": "mekanism:ingot_refined_obsidian" }
+  },
+  "result": {
+    "item": "irradiated_generator:radiation_generator",
+    "count": 1
+  }
+}

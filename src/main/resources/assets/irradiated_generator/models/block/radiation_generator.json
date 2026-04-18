@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "south": "irradiated_generator:block/radiation_generator_front",
+    "north": "irradiated_generator:block/radiation_generator_back",
+    "west": "irradiated_generator:block/radiation_generator_side",
+    "east": "irradiated_generator:block/radiation_generator_side",
+    "up": "irradiated_generator:block/radiation_generator_top",
+    "down": "irradiated_generator:block/radiation_generator_bottom",
+    "particle": "irradiated_generator:block/radiation_generator_back"
+  }
+}
