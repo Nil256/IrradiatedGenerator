@@ -60,8 +60,5 @@ public class IrradiatedGenerator
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-        LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
-
-        Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
     }
 }
