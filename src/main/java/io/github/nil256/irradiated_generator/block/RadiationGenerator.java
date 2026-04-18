@@ -6,7 +6,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -55,19 +54,17 @@ public class RadiationGenerator extends BaseEntityBlock {
         return new RadiationGeneratorBE(pos, state);
     }
 
-    /*
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> be) {
         if (level.isClientSide()){
             return null;
         }
         return (l, p, s, blockEntity) ->{
-            if (blockEntity instanceof RadiationGeneratorBE gbe){
-                gbe.tick();
+            if (blockEntity instanceof RadiationGeneratorBE rg){
+                rg.tick();
             }
         };
     }
-    */
 
     @SuppressWarnings("deprecation")
     @Override

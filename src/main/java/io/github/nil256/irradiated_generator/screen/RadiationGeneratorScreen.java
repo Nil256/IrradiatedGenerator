@@ -39,6 +39,24 @@ public class RadiationGeneratorScreen extends AbstractContainerScreen<RadiationG
     protected void renderLabels(GuiGraphics graphics, int w, int h) {
         graphics.drawString(font, title, titleLabelX, titleLabelY, 0x3F3F3F, false);
         graphics.drawString(font, playerInventoryTitle ,inventoryLabelX, inventoryLabelY, 0x3F3F3F, false);
-        graphics.drawString(font, String.valueOf(menu.getBlockEntity().energyStorage.getEnergyStored()) ,50, 20, 0x00ff00, false);
+        graphics.drawString(font, GetFEText(),50, 20, 0x00ff00, false);
+    }
+
+    private String GetFEText(){
+        int energy = menu.getBlockEntity().energyStorage.getEnergyStored();
+        String result;
+        if (energy > 1000000){
+            double energyForText = energy / 1000000.0;
+            result = String.format("%.2f", energyForText) + "M";
+        }
+        else if (energy > 1000){
+            double energyForText = energy / 1000.0;
+            result = String.format("%.2f", energyForText) + "k";
+        }
+        else {
+            result = String.valueOf(energy);
+        }
+        result += "FE/t";
+        return result;
     }
 }
