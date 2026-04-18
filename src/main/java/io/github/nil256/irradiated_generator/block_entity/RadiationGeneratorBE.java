@@ -1,6 +1,7 @@
 package io.github.nil256.irradiated_generator.block_entity;
 
 import io.github.nil256.irradiated_generator.block.RadiationGenerator;
+import io.github.nil256.irradiated_generator.menu.RadiationGeneratorMenu;
 import io.github.nil256.irradiated_generator.registry.ModBlockEntityTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -98,6 +99,6 @@ public class RadiationGeneratorBE extends BlockEntity implements MenuProvider {
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int id, @NotNull Inventory playerInventory, @NotNull Player player) {
-        return null;
+        return new RadiationGeneratorMenu(id, playerInventory, this);
     }
 }
