@@ -47,7 +47,7 @@ public class RadiationGeneratorScreen extends AbstractContainerScreen<RadiationG
         String result;
         if (energy > 1000000000){
             double energyForText = energy / 1000000000.0;
-            result = String.format("%.2f", energyForText) + "T";
+            result = String.format("%.2f", energyForText) + "G";
         }
         else if (energy > 1000000){
             double energyForText = energy / 1000000.0;
