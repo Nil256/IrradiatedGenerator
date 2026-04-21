@@ -64,16 +64,10 @@ public class RadiationGeneratorBE extends BlockEntity implements MenuProvider {
     public void tick(){
         Direction dir = getBlockState().getValue(RadiationGenerator.FACING);
         BlockEntity be = Objects.requireNonNull(level).getBlockEntity(getBlockPos().relative(dir));
-        switch (dir){
-            case NORTH -> dir = Direction.SOUTH;
-            case SOUTH -> dir = Direction.NORTH;
-            case WEST -> dir = Direction.EAST;
-            case EAST -> dir = Direction.WEST;
-        }
         if (be == null){
             return;
         }
-        LazyOptional<IEnergyStorage> cap = be.getCapability(ForgeCapabilities.ENERGY, dir);
+        LazyOptional<IEnergyStorage> cap = be.getCapability(ForgeCapabilities.ENERGY, dir.getOpposite());
         cap.ifPresent(handler -> {
             if (handler.canReceive()){
                 handler.receiveEnergy(energyStorage.getEnergyStored(), false);
