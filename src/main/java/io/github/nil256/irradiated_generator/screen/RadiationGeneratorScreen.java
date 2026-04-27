@@ -43,9 +43,22 @@ public class RadiationGeneratorScreen extends AbstractContainerScreen<RadiationG
     }
 
     private String GetFEText(){
-        int energy = menu.getBlockEntity().energyStorage.getEnergyStored();
+        // int energy = menu.getBlockEntity().energyStorage.getEnergyStored();
+        Long energy = menu.getBlockEntity().radiationStrictEnergy.getEnergy(0).getValue();
         String result;
-        if (energy > 1000000000){
+        if (energy > 1000000000000000000L){
+            double energyForText = energy / 1000000000000000000.0;
+            result = String.format("%.2f", energyForText) + "E";
+        }
+        else if (energy > 1000000000000000L){
+            double energyForText = energy / 1000000000000000.0;
+            result = String.format("%.2f", energyForText) + "P";
+        }
+        else if (energy > 1000000000000L){
+            double energyForText = energy / 1000000000000.0;
+            result = String.format("%.2f", energyForText) + "T";
+        }
+        else if (energy > 1000000000){
             double energyForText = energy / 1000000000.0;
             result = String.format("%.2f", energyForText) + "G";
         }
