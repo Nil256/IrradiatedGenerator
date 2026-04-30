@@ -6,6 +6,9 @@ import io.github.nil256.irradiated_generator.registry.ModBlockEntityTypeRegistry
 import mekanism.api.Action;
 import mekanism.api.energy.IStrictEnergyHandler;
 import mekanism.common.capabilities.Capabilities;
+import mekanism.common.content.network.EnergyNetwork;
+import mekanism.common.content.network.distribution.EnergyAcceptorTarget;
+import mekanism.common.util.EmitUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -82,15 +85,12 @@ public class RadiationGeneratorBE extends BlockEntity implements MenuProvider {
         if (be == null){
             return;
         }
-        // LazyOptional<IEnergyStorage> cap = be.getCapability(ForgeCapabilities.ENERGY, dir.getOpposite());
         LazyOptional<IStrictEnergyHandler> cap = be.getCapability(Capabilities.STRICT_ENERGY, dir.getOpposite());
         cap.ifPresent(handler -> {
-            /*
-            if (handler.canReceive()){
-                handler.receiveEnergy(energyStorage.getEnergyStored(), false);
-            }
-            */
-            handler.insertEnergy(radiationStrictEnergy.getEnergy(0), Action.EXECUTE);
+            // handler.insertEnergy(radiationStrictEnergy.getEnergy(0), Action.EXECUTE);
+            EnergyAcceptorTarget target = new EnergyAcceptorTarget(1);
+            target.addHandler(handler);
+            EmitUtils.sendToAcceptors(target, radiationStrictEnergy.getEnergy(0));
         });
     }
 
