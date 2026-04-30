@@ -8,6 +8,7 @@ import mekanism.api.energy.IStrictEnergyHandler;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.content.network.EnergyNetwork;
 import mekanism.common.content.network.distribution.EnergyAcceptorTarget;
+import mekanism.common.integration.energy.EnergyCompatUtils;
 import mekanism.common.util.EmitUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -90,6 +91,7 @@ public class RadiationGeneratorBE extends BlockEntity implements MenuProvider {
             // handler.insertEnergy(radiationStrictEnergy.getEnergy(0), Action.EXECUTE);
             EnergyAcceptorTarget target = new EnergyAcceptorTarget(1);
             target.addHandler(handler);
+            EnergyCompatUtils.getLazyStrictEnergyHandler(be, dir.getOpposite()).ifPresent(target::addHandler);
             EmitUtils.sendToAcceptors(target, radiationStrictEnergy.getEnergy(0));
         });
     }
