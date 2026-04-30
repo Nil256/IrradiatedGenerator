@@ -20,8 +20,8 @@ public class Config
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
     private static final ForgeConfigSpec.IntValue CONVERSION_MULTIPLIER = BUILDER
-            .comment("Multiplier used in the Generator's conversion Sv to FE\n1 = 1Sv is converted 1FE/t\n100 by default")
-            .defineInRange("svToFEMultiplier", 100, 1, 1000000);
+            .comment("Multiplier used in the Generator's conversion Sv to FE\n1 = 1Sv is converted 1FE/t\nint value, 100 by default")
+            .defineInRange("svToFEMultiplier", 100, 1, Integer.MAX_VALUE);
 
     static final ForgeConfigSpec SPEC = BUILDER.build();
 
