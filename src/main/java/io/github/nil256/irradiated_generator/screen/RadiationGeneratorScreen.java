@@ -1,6 +1,7 @@
 package io.github.nil256.irradiated_generator.screen;
 
 import io.github.nil256.IrradiatedGenerator;
+import io.github.nil256.irradiated_generator.block_entity.RadiationEnergyUtil;
 import io.github.nil256.irradiated_generator.menu.RadiationGeneratorMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -44,7 +45,7 @@ public class RadiationGeneratorScreen extends AbstractContainerScreen<RadiationG
 
     private String GetFEText(){
         // int energy = menu.getBlockEntity().energyStorage.getEnergyStored();
-        Long energy = menu.getBlockEntity().radiationStrictEnergy.getEnergy(0).getValue();
+        Long energy = RadiationEnergyUtil.GetCurrentEnergy(menu.getBlockEntity()).getValue();
         String result;
         if (energy > 1000000000000000000L){
             double energyForText = energy / 1000000000000000000.0;
