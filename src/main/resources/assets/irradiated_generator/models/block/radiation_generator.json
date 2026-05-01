@@ -6,7 +6,7 @@
     "west": "irradiated_generator:block/radiation_generator_side",
     "east": "irradiated_generator:block/radiation_generator_side",
     "up": "irradiated_generator:block/radiation_generator_top",
-    "down": "irradiated_generator:block/radiation_generator_bottom",
+    "down": "irradiated_generator:block/radiation_generator_front",
     "particle": "irradiated_generator:block/radiation_generator_back"
   }
 }

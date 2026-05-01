@@ -52,7 +52,7 @@ public class RadiationGeneratorBE extends BlockEntity implements MenuProvider {
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (getBlockState().getValue(RadiationGenerator.FACING) != side){
+        if (side != getBlockState().getValue(RadiationGenerator.FACING) && side != Direction.DOWN){
             return super.getCapability(cap, side);
         }
         if (cap != ForgeCapabilities.ENERGY){
@@ -62,17 +62,21 @@ public class RadiationGeneratorBE extends BlockEntity implements MenuProvider {
     }
 
     public void tick(){
-        Direction dir = getBlockState().getValue(RadiationGenerator.FACING);
-        BlockEntity be = Objects.requireNonNull(level).getBlockEntity(getBlockPos().relative(dir));
-        if (be == null){
-            return;
-        }
-        LazyOptional<IEnergyStorage> cap = be.getCapability(ForgeCapabilities.ENERGY, dir.getOpposite());
-        cap.ifPresent(handler -> {
-            if (handler.canReceive()){
-                handler.receiveEnergy(energyStorage.getEnergyStored(), false);
+        Direction[] directions = new Direction[2];
+        directions[0] = getBlockState().getValue(RadiationGenerator.FACING);
+        directions[1] = Direction.DOWN;
+        for (Direction dir : directions) {
+            BlockEntity be = Objects.requireNonNull(level).getBlockEntity(getBlockPos().relative(dir));
+            if (be == null) {
+                continue;
             }
-        });
+            LazyOptional<IEnergyStorage> cap = be.getCapability(ForgeCapabilities.ENERGY, dir.getOpposite());
+            cap.ifPresent(handler -> {
+                if (handler.canReceive()){
+                    handler.receiveEnergy(energyStorage.getEnergyStored(), false);
+                }
+            });
+        }
     }
 
     @Override
