@@ -23,13 +23,19 @@ public class Config
             .comment("Multiplier used in the Generator's conversion Sv to FE\n1 = 1Sv is converted 1FE/t\nint value, 100 by default")
             .defineInRange("svToFEMultiplier", 100, 1, Integer.MAX_VALUE);
 
+    private static final ForgeConfigSpec.BooleanValue REMOVE_UNKNOWN_GAP_BETWEEN_GENERATION_AND_TRANSFER = BUILDER
+            .comment("Fix unknown gap between generation and transfer forcibly\ntrue by default")
+            .define("removeUnknownGapBetweenGenerationAndTransfer", true);
+
     static final ForgeConfigSpec SPEC = BUILDER.build();
 
     public static int conversionMultiplier;
+    public static boolean removeUnknownGapBetweenGenerationAndTransfer;
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event)
     {
         conversionMultiplier = CONVERSION_MULTIPLIER.get();
+        removeUnknownGapBetweenGenerationAndTransfer = REMOVE_UNKNOWN_GAP_BETWEEN_GENERATION_AND_TRANSFER.get();
     }
 }

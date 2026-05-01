@@ -1,15 +1,11 @@
 package io.github.nil256.irradiated_generator.block_entity;
 
-import io.github.nil256.Config;
-import mekanism.api.Coord4D;
-import mekanism.api.radiation.IRadiationManager;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.energy.IEnergyStorage;
 
 public class RadiationEnergy implements IEnergyStorage {
-    private final BlockEntity blockEntity;
+    private final RadiationGeneratorBE blockEntity;
 
-    public RadiationEnergy(BlockEntity be){
+    public RadiationEnergy(RadiationGeneratorBE be){
         blockEntity = be;
     }
 
@@ -25,9 +21,7 @@ public class RadiationEnergy implements IEnergyStorage {
 
     @Override
     public int getEnergyStored() {
-        double radiation = IRadiationManager.INSTANCE.getRadiationLevel(new Coord4D(blockEntity));;
-        int energy = (int)(radiation * Config.conversionMultiplier);
-        return energy;
+        return blockEntity.GetCurrentEnergy().intValue();
     }
 
     @Override
@@ -37,8 +31,7 @@ public class RadiationEnergy implements IEnergyStorage {
 
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
-        double radiation = IRadiationManager.INSTANCE.getRadiationLevel(new Coord4D(blockEntity));;
-        int energy = (int)(radiation * Config.conversionMultiplier);
+        int energy = getEnergyStored();
         if (energy > maxExtract){
             energy = maxExtract;
         }

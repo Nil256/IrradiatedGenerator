@@ -8,9 +8,17 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class RadiationEnergyUtil {
-    public static @NotNull FloatingLong GetCurrentEnergy(BlockEntity blockEntity){
-        double radiation = IRadiationManager.INSTANCE.getRadiationLevel(new Coord4D(blockEntity));
-        return FloatingLong.create(radiation * Config.conversionMultiplier);
+    public static double GetCurrentRadiation(BlockEntity blockEntity){
+        return IRadiationManager.INSTANCE.getRadiationLevel(new Coord4D(blockEntity));
+    }
+
+    public static @NotNull FloatingLong GetCurrentEnergy(BlockEntity blockEntity, boolean simulate){
+        double radiation = GetCurrentRadiation(blockEntity);
+        double energy = radiation * Config.conversionMultiplier;
+        if (!simulate && Config.removeUnknownGapBetweenGenerationAndTransfer){
+            energy *= 2.5;
+        }
+        return FloatingLong.create(energy);
     }
 
     public static @NotNull FloatingLong GetMaxEnergy(){

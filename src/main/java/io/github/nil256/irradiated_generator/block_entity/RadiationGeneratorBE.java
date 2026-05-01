@@ -6,6 +6,7 @@ import io.github.nil256.irradiated_generator.registry.ModBlockEntityTypeRegistry
 import mekanism.api.energy.IEnergyContainer;
 import mekanism.api.energy.IMekanismStrictEnergyHandler;
 import mekanism.api.energy.IStrictEnergyHandler;
+import mekanism.api.math.FloatingLong;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.util.CableUtils;
 import net.minecraft.core.BlockPos;
@@ -58,8 +59,15 @@ public class RadiationGeneratorBE extends BlockEntity implements MenuProvider, I
 
     private final RadiationEnergyContainer energyContainer = new RadiationEnergyContainer(this);
 
+    private FloatingLong _currentEnergy;
+
     public RadiationGeneratorBE(BlockPos pos, BlockState state) {
         super(ModBlockEntityTypeRegistry.RADIATION_GENERATOR.get(), pos, state);
+        _currentEnergy = FloatingLong.ZERO;
+    }
+
+    public @NotNull FloatingLong GetCurrentEnergy(){
+        return FloatingLong.create(_currentEnergy.longValue());
     }
 
     private boolean isEnergyExtractableDirection(@Nullable Direction direction){
@@ -92,6 +100,7 @@ public class RadiationGeneratorBE extends BlockEntity implements MenuProvider, I
     }
 
     public void tick(){
+        _currentEnergy = RadiationEnergyUtil.GetCurrentEnergy(this, false);
         Set<Direction> directions = EnumSet.of(getBlockState().getValue(RadiationGenerator.FACING), Direction.DOWN);
         CableUtils.emit(directions, energyContainer, this, RadiationEnergyUtil.GetMaxEnergy());
     }

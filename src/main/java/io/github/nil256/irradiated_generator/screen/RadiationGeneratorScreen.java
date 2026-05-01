@@ -36,16 +36,20 @@ public class RadiationGeneratorScreen extends AbstractContainerScreen<RadiationG
         graphics.blit(GUI_TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
     }
 
+    private static final Component Gen = Component.translatable("gui.irradiated_generator.gen");
+
     @Override
     protected void renderLabels(GuiGraphics graphics, int w, int h) {
         graphics.drawString(font, title, titleLabelX, titleLabelY, 0x3F3F3F, false);
         graphics.drawString(font, playerInventoryTitle ,inventoryLabelX, inventoryLabelY, 0x3F3F3F, false);
-        graphics.drawString(font, GetFEText(),50, 20, 0x00ff00, false);
+        graphics.drawString(font, Gen,50, 20, 0x00ff00, false);
+        graphics.drawString(font, GetFEText(),70, 20, 0x00ff00, false);
+        graphics.drawString(font, GetSvText(),50, 32, 0x00ff00, false);
     }
 
     private String GetFEText(){
         // int energy = menu.getBlockEntity().energyStorage.getEnergyStored();
-        Long energy = RadiationEnergyUtil.GetCurrentEnergy(menu.getBlockEntity()).getValue();
+        Long energy = RadiationEnergyUtil.GetCurrentEnergy(menu.getBlockEntity(), true).longValue();
         String result;
         if (energy > 1000000000000000000L){
             double energyForText = energy / 1000000000000000000.0;
@@ -75,6 +79,56 @@ public class RadiationGeneratorScreen extends AbstractContainerScreen<RadiationG
             result = String.valueOf(energy);
         }
         result += "FE/t";
+        return result;
+    }
+
+    private String GetSvText(){
+        double rad = RadiationEnergyUtil.GetCurrentRadiation(menu.getBlockEntity());
+        String result;
+        if (rad > 1000000000000000000000000000000.0){
+            double energyForText = rad / 1000000000000000000000000000000.0;
+            result = String.format("%.2f", energyForText) + "Q";
+        }
+        else if (rad > 1000000000000000000000000000.0){
+            double energyForText = rad / 1000000000000000000000000000.0;
+            result = String.format("%.2f", energyForText) + "R";
+        }
+        else if (rad > 1000000000000000000000000.0){
+            double energyForText = rad / 1000000000000000000000000.0;
+            result = String.format("%.2f", energyForText) + "Y";
+        }
+        else if (rad > 1000000000000000000000.0){
+            double energyForText = rad / 1000000000000000000000.0;
+            result = String.format("%.2f", energyForText) + "Z";
+        }
+        else if (rad > 1000000000000000000.0){
+            double energyForText = rad / 1000000000000000000.0;
+            result = String.format("%.2f", energyForText) + "E";
+        }
+        else if (rad > 1000000000000000.0){
+            double energyForText = rad / 1000000000000000.0;
+            result = String.format("%.2f", energyForText) + "P";
+        }
+        else if (rad > 1000000000000.0){
+            double energyForText = rad / 1000000000000.0;
+            result = String.format("%.2f", energyForText) + "T";
+        }
+        else if (rad > 1000000000.0){
+            double energyForText = rad / 1000000000.0;
+            result = String.format("%.2f", energyForText) + "G";
+        }
+        else if (rad > 1000000.0){
+            double energyForText = rad / 1000000.0;
+            result = String.format("%.2f", energyForText) + "M";
+        }
+        else if (rad > 1000.0){
+            double energyForText = rad / 1000.0;
+            result = String.format("%.2f", energyForText) + "k";
+        }
+        else {
+            result = String.valueOf(rad);
+        }
+        result += "Sv";
         return result;
     }
 }

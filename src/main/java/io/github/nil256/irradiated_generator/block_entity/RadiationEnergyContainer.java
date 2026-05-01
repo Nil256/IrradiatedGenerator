@@ -5,19 +5,18 @@ import mekanism.api.AutomationType;
 import mekanism.api.energy.IEnergyContainer;
 import mekanism.api.math.FloatingLong;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class RadiationEnergyContainer implements IEnergyContainer {
-    private final BlockEntity blockEntity;
+    private final RadiationGeneratorBE blockEntity;
 
-    public RadiationEnergyContainer(BlockEntity be){
+    public RadiationEnergyContainer(RadiationGeneratorBE be){
         blockEntity = be;
     }
 
     @Override
     public @NotNull FloatingLong getEnergy() {
-        return RadiationEnergyUtil.GetCurrentEnergy(blockEntity);
+        return blockEntity.GetCurrentEnergy();
     }
 
     @Override
@@ -40,7 +39,7 @@ public class RadiationEnergyContainer implements IEnergyContainer {
 
     @Override
     public @NotNull FloatingLong insert(@NotNull FloatingLong amount, Action action, AutomationType automationType) {
-        return amount;
+        return FloatingLong.ZERO;
     }
 
     @Override

@@ -2,5 +2,6 @@
   "item.irradiated_generator.test_item": "テストアイテム",
   "item.irradiated_generator.radiation_generator": "放射線発電機",
   "block.irradiated_generator.radiation_generator": "放射線発電機",
+  "gui.irradiated_generator.gen": "生成:",
   "creativetab.all": "Irradiated Generator"
 }

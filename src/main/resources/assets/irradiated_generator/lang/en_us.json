@@ -2,5 +2,6 @@
   "item.irradiated_generator.test_item": "Test Item",
   "item.irradiated_generator.radiation_generator": "Radiation Generator",
   "block.irradiated_generator.radiation_generator": "Radiation Generator",
+  "gui.irradiated_generator.gen": "Gen:",
   "creativetab.all": "Irradiated Generator"
 }
